@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+<project name="apperk" default="javadoc">
+    <import file="../../../test/library-locator.xml"/>
+    <property file="../../../test/${propertyFile}"/>
+
+    <path id="project.classpath">
+        <fileset dir="${dir.spring}"><include name="**/*.jar"/></fileset>
+        <fileset dir="${dir.jgoodies}"><include name="**/*.jar"/></fileset>
+    </path>
+
+    <target name="init">
+        <mkdir dir="build"/>
+        <mkdir dir="build/javadoc"/>
+    </target>
+
+    <target name="javadoc" description="Generate Javadocs" depends="init">
+        <javadoc destdir="build/javadoc" defaultexcludes="yes"
+            windowtitle="apperk javadoc">
+            <doctitle><![CDATA[<h1>apperk</h1>]]></doctitle>
+            <bottom><![CDATA[<i>Copyright (C) 2005 Improved Ideas, Inc.</i>]]></bottom>
+
+            <link href="http://stephenw.improvedideas.com/pkgdoc/spring-1.2.5/api/"/>
+            <link href="http://stephenw.improvedideas.com/pkgdoc/jdk-1_5_0-doc/docs/api/"/>
+            <link href="http://stephenw.improvedideas.com/pkgdoc/j2eeri-1_4-doc-api/apidocs/"/>
+
+            <!--
+            <group title="Remoting Services"
+                packages="com.aspenenergy:com.aspenenergy.*"/>
+                -->
+
+            <!-- had to use this instead of project.classpath because it was
+                too long since this task runs javadoc as a native program -->
+            <!--
+            <classpath>
+                <fileset dir="lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+                <fileset dir="${dir.junit}"><include name="**/*.jar"/></fileset>
+            </classpath>
+            -->
+            <classpath>
+                <path refid="project.classpath"/>
+            </classpath>
+
+            <fileset dir=".">
+                <include name="src/**/*.java"/>
+            </fileset>
+        </javadoc>
+    </target>
+</project>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!-- Example application configuration -->
+<beans>
+    <!-- Main application window configuration -->
+    <bean id="applicationWindow" class="apperk.ApplicationWindow">
+        <property name="title" value="My ApPlIcAtIoN"/>
+        <property name="menuBar" ref="menuBar"/>
+        <property name="centered" value="true"/>
+        <property name="size">
+            <bean class="java.awt.Dimension">
+                <constructor-arg index="0" value="640"/>
+                <constructor-arg index="1" value="480"/>
+            </bean>
+        </property>
+
+        <!-- internal frames that will be opened in the main window -->
+        <property name="defaultInternalFrames">
+            <list>
+                <!-- a configured version of swing panel 1 -->
+                <bean class="apperk.InternalWindow">
+                    <property name="title" value="Swing Pane 1!"/>
+                    <property name="resizable" value="true"/>
+                    <property name="closable" value="true"/>
+                    <property name="contentPane">
+                        <bean class="com.ii.sample.SwingPanel1"/>
+                    </property>
+                </bean>
+                <!-- a default version of swing panel 1 -->
+                <bean class="com.ii.sample.SwingPanel1"/>
+                <!-- a configured version of an entity edit panel -->
+                <bean class="apperk.InternalWindow">
+                    <property name="title" value="Edit Person - John Baptist"/>
+                    <property name="resizable" value="true"/>
+                    <property name="closable" value="true"/>
+                    <property name="contentPane">
+                        <bean class="apperk.EntityEditPanel">
+                            <property name="entity">
+                                <bean class="com.ii.sample.model.Person">
+                                    <property name="age" value="35"/>
+                                    <property name="id" value="0"/>
+                                    <property name="name" value="John Baptist"/>
+                                    <property name="nickname"
+                                        value="Johnny Bonnie"/>
+                                </bean>
+                            </property>
+                        </bean>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <!-- the menu bar for the application -->
+    <bean id="menuBar" class="apperk.menu.MenuBarConfigurer">
+        <property name="menus">
+            <list>
+                <bean class="apperk.menu.Menu">
+                    <property name="text" value="File"/>
+                    <property name="menuItems">
+                        <list>
+                            <bean class="apperk.ActionConfigurer">
+                                <property name="action">
+                                    <bean class="com.ii.sample.ExitAction"/>
+                                </property>
+                                <property name="name" value="Exit"/>
+                            </bean>
+                            <value>separator</value>
+                        </list>
+                    </property>
+                </bean>
+                <bean class="apperk.menu.Menu">
+                    <property name="text" value="Edit"/>
+                    <property name="menuItems">
+                        <list>
+                            <value>separator</value>
+                            <bean class="apperk.ActionConfigurer">
+                                <property name="action">
+                                    <bean class="com.ii.sample.ExitAction"/>
+                                </property>
+                                <property name="name" value="Jump"/>
+                            </bean>
+                            <value>separator</value>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+</beans>
+
