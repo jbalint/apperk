@@ -21,7 +21,8 @@ public class MyApplication
     {
         javax.swing.UIManager.setLookAndFeel(
             "com.jgoodies.looks.windows.WindowsLookAndFeel");
-        new FileSystemXmlApplicationContext("etc/spring.xml");
+        new FileSystemXmlApplicationContext(
+				new String[] { "etc/spring.xml", "etc/gencriteria.xml" });
     }
 }
 

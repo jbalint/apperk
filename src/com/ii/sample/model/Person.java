@@ -5,6 +5,27 @@ public class Person extends NamedEntity {
     private Long id;
     private String nickname;
     private Integer age;
+    private String telephone;
+
+    /**
+     * Sets Telephone
+     *
+     * @param    Telephone           a  String
+     */
+    public void setTelephone(String telephone)
+    {
+        this.telephone = telephone;
+    }
+
+    /**
+     * Returns Telephone
+     *
+     * @return    a  String
+     */
+    public String getTelephone()
+    {
+        return telephone;
+    }
 
     /**
      * Sets Address

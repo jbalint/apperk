@@ -80,16 +80,19 @@ public class ApplicationWindow implements InitializingBean, WindowListener
      * Allows adding a panel to the window by wrapping it in a default
      * internal frame.
      * <p/>
-     * TODO: All setting default properties for the created frame.
+     * TODO: Allow setting default properties for the created frame.
+	 * This can be accomplished with some map that is applied or a
+	 * &quot;prototype&quot; frame (will it be clone()d?)
      * <p/>
      * @param panel The panel to wrap and insert.
      */
-    protected void addInternalFrame(JPanel panel)
+    public JInternalFrame addInternalFrame(JPanel panel)
     {
         JInternalFrame jif = new JInternalFrame();
         jif.setContentPane(panel);
         jif.pack();
         addInternalFrame(jif, true);
+		return jif;
     }
 
     /**
@@ -99,7 +102,7 @@ public class ApplicationWindow implements InitializingBean, WindowListener
      * @param center Whether or not to center the frame. It can be positioned
      *         manually before entering this method.
      */
-    protected void addInternalFrame(JInternalFrame jif, boolean center)
+    public void addInternalFrame(JInternalFrame jif, boolean center)
     {
         if(center)
             jif.setLocation((desktop.getWidth() - jif.getWidth()) / 2,

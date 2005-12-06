@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<bean id="XXX_class_descriptor_XXX_Contract"
+		class="apperk.gencriteria.EntityDisplayDescriptor">
+		<property name="entityClass"
+		value="com.aspenenergy.utilitymanagement.model.AspenServiceContract"/>
+		<property name="entityName" value="Contract"/>
+		<property name="excludeProperties">
+			<list>
+				<value>id</value>
+				<value>repId</value>
+				<value>endpointId</value>
+				<value>serviceId</value>
+				<value>monthsAsNew</value>
+				<value>flowToBillDelay</value>
+				<value>fixedRateId</value>
+			</list>
+		</property>
+	</bean>
+</beans>
+

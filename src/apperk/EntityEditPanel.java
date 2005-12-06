@@ -85,7 +85,7 @@ public class EntityEditPanel extends JPanel
         // represents order of properties and which properties to use
         // we should probably also use a second array of display names
         String[] displayProps = new String[] {
-            "name", "nickname", "age", "address" };
+            "name", "nickname", "age", "address", "telephone" };
 
         // a map (that will be saved for later) of display components for
         // each property of the entity

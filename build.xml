@@ -7,12 +7,33 @@
     <path id="project.classpath">
         <fileset dir="${dir.spring}"><include name="**/*.jar"/></fileset>
         <fileset dir="${dir.jgoodies}"><include name="**/*.jar"/></fileset>
+        <fileset dir="${dir.foxtrot}"><include name="**/*.jar"/></fileset>
+        <fileset dir="lib"><include name="**/*.jar"/></fileset>
     </path>
 
     <target name="init">
         <mkdir dir="build"/>
         <mkdir dir="build/javadoc"/>
+        <mkdir dir="build/jar"/>
     </target>
+
+	<target name="compile" depends="init">
+		<javac
+			srcdir="src"
+			destdir="build/jar"
+			classpathref="project.classpath">
+			<include name="**/*.java"/>
+		</javac>
+	</target>
+
+	<target name="run" depends="compile">
+		<java classname="com.ii.sample.MyApplication"
+			fork="true" classpathref="project.classpath">
+			<classpath>
+				<pathelement path="build/jar"/>
+			</classpath>
+		</java>
+	</target>
 
     <target name="javadoc" description="Generate Javadocs" depends="init">
         <javadoc destdir="build/javadoc" defaultexcludes="yes"
