@@ -28,7 +28,7 @@ public class EntityDisplayDescriptor implements InitializingBean
 		new ArrayList<DynaProperty>();
 	private List<String> displayPropertyNames;
 	private Map<String, String> displayNames = new HashMap<String, String>();
-	private List<String> excludeProperties = null;
+	private List<String> excludePropertyNames = null;
 
 	public EntityDisplayDescriptor()
 	{
@@ -47,9 +47,9 @@ public class EntityDisplayDescriptor implements InitializingBean
 		WrapDynaClass wdc = WrapDynaClass.createDynaClass(entityClass);
 
 		// setup an empty List for convenience if not provided
-		if(excludeProperties == null)
+		if(excludePropertyNames == null)
 		{
-			excludeProperties = new ArrayList<String>();
+			excludePropertyNames = new ArrayList<String>();
 		}
 
 		// Setup initial properties
@@ -57,7 +57,7 @@ public class EntityDisplayDescriptor implements InitializingBean
 		{
 			for(DynaProperty dp : wdc.getDynaProperties())
 			{
-				if(!excludeProperties.contains(dp.getName()))
+				if(!excludePropertyNames.contains(dp.getName()))
 					displayProperties = Arrays.asList(wdc.getDynaProperties());
 			}
 		}
@@ -73,7 +73,7 @@ public class EntityDisplayDescriptor implements InitializingBean
 								name, entityClass.getName()));
 				}
 
-				if(!excludeProperties.contains(name))
+				if(!excludePropertyNames.contains(name))
 					displayProperties.add(dp);
 			}
 		}
@@ -159,7 +159,8 @@ public class EntityDisplayDescriptor implements InitializingBean
 	}
 
 	/**
-	 * Set displayPropertyNames.
+	 * Set displayPropertyNames. These are the properties of the entity
+	 * that will be displayed.
 	 *
 	 * @param displayPropertyNames the value to set.
 	 */
@@ -179,13 +180,14 @@ public class EntityDisplayDescriptor implements InitializingBean
 	}
 
 	/**
-	 * Set excludeProperties.
+	 * Set excludePropertyNames. This properties will not be displayed
+	 * on the entity.
 	 *
-	 * @param excludeProperties the value to set.
+	 * @param excludePropertyNames the value to set.
 	 */
-	public void setExcludeProperties(List<String> excludeProperties)
+	public void setExcludePropertyNames(List<String> excludePropertyNames)
 	{
-		this.excludeProperties = excludeProperties;
+		this.excludePropertyNames = excludePropertyNames;
 	}
 }
 

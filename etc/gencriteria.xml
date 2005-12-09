@@ -9,7 +9,7 @@
 		<property name="entityClass"
 		value="com.aspenenergy.utilitymanagement.model.AspenServiceContract"/>
 		<property name="entityName" value="Contract"/>
-		<property name="excludeProperties">
+		<property name="excludePropertyNames">
 			<list>
 				<value>id</value>
 				<value>repId</value>

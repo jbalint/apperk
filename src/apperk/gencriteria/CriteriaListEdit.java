@@ -1,5 +1,6 @@
 package apperk.gencriteria;
 
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 
 import org.springframework.beans.factory.InitializingBean;
@@ -19,14 +20,14 @@ public class CriteriaListEdit implements InitializingBean
 
 	public CriteriaListEdit()
 	{
-		ButtonConnector.connect(holder.btnAdd, this,
+		ButtonConnector.connect(holder.btnAddExpression, this,
 				"onAdd", false, true, false);
 	}
 
 	public void onAdd()
 	{
 		ExpressionEditor ee = new ExpressionEditor();
-		final JInternalFrame jif = appWindow.addInternalFrame(ee);
+		final JInternalFrame jif = appWindow.addInternalFrame(ee.holder);
 		//Runnable r = new Runnable()
 		//{
 		//};

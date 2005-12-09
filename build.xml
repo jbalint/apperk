@@ -11,6 +11,10 @@
         <fileset dir="lib"><include name="**/*.jar"/></fileset>
     </path>
 
+	<target name="clean">
+		<delete dir="build"/>
+	</target>
+
     <target name="init">
         <mkdir dir="build"/>
         <mkdir dir="build/javadoc"/>
