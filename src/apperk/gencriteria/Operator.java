@@ -3,6 +3,10 @@ package apperk.gencriteria;
 public abstract class Operator
 {
 	public static final Operator GREATER_THAN = new GreaterThan();
+	public static final Operator BETWEEN = new Between();
+
+	public static final Operator ALL_AVAILABLE[] = new Operator[]
+		{ GREATER_THAN, BETWEEN };
 
 	protected final String stringView;
 	protected final int minParams;
@@ -20,7 +24,10 @@ public abstract class Operator
 
 	private void checkParams(Object[] params)
 	{
-		int size = params.length;
+		int size = 0;
+
+		if(params != null)
+			size = params.length;
 
 		if(size < minParams || size > maxParams)
 		{
@@ -104,7 +111,7 @@ public abstract class Operator
 			return (((Number)value).doubleValue() >=
 				((Number)params[0]).doubleValue()) &&
 				(((Number)value).doubleValue() <=
-				((Number)params[1]).doubleValue()) &&;
+				((Number)params[1]).doubleValue());
 		}
 
 		protected String doGetDescription(Object[] params)

@@ -8,6 +8,7 @@
         <fileset dir="${dir.spring}"><include name="**/*.jar"/></fileset>
         <fileset dir="${dir.jgoodies}"><include name="**/*.jar"/></fileset>
         <fileset dir="${dir.foxtrot}"><include name="**/*.jar"/></fileset>
+        <fileset dir="${dir.glazedlists}"><include name="**/*.jar"/></fileset>
         <fileset dir="lib"><include name="**/*.jar"/></fileset>
     </path>
 
@@ -36,6 +37,17 @@
 			<classpath>
 				<pathelement path="build/jar"/>
 			</classpath>
+		</java>
+	</target>
+
+	<target name="criteriademo" depends="compile">
+		<java classname="com.ii.demo.CriteriaDemo"
+			fork="true" classpathref="project.classpath">
+			<classpath>
+				<pathelement path="build/jar"/>
+			</classpath>
+			<sysproperty key="swing.defaultlaf"
+				value="com.jgoodies.looks.windows.WindowsLookAndFeel"/>
 		</java>
 	</target>
 
