@@ -8,6 +8,8 @@ import javax.swing.AbstractButton;
 
 import foxtrot.Job;
 import foxtrot.Worker;
+import info.javelot.functionalj.Function;
+import info.javelot.functionalj.InstanceFunction;
 import org.apache.log4j.Logger;
 
 /**
@@ -19,10 +21,8 @@ public class ButtonConnector implements ActionListener
 {
 	private static final Logger log = Logger.getLogger(ButtonConnector.class);
 
-	/** Target object the method will be invoked on. */
-	protected Object target;
-	/** Method reference to invoke. */
-	protected Method method;
+	/** Function reference to invoke. */
+	protected Function function;
 	/** Whether or not to pass the AWT event to the method. */
 	protected boolean passEvent;
 	/** Whether or not to invoke the method on the event dispatch thread. */
@@ -31,51 +31,36 @@ public class ButtonConnector implements ActionListener
 	protected boolean onNewThread;
 
 	/**
-	 * Create a new ButtonConnector.
+	 * Create a new ButtonConnector. This will act as an ActionListener
+	 * that will execute the given function when an event is received.
+	 * <p/>
+	 * The function will be called on either a new thread or the EDT. If
+	 * neither is specified, it will be called on the FoxTrot worker thread.
 	 *
-	 * @param target The target object.
-	 * @param method A method reference to call.
+	 * @param function A function reference to call.
 	 * @param passEvent Whether or not to pass the ActionEvent.
+	 * @param onSwingThread Call function on EDT.
+	 * @param onNewThread Spawn a new thread for the function call.
 	 */
-	public ButtonConnector(Object target, Method method, boolean passEvent,
+	public ButtonConnector(Function function, boolean passEvent,
 			boolean onSwingThread, boolean onNewThread)
 	{
-		this.target = target;
-		this.method = method;
+		this.function = function;
 		this.passEvent = passEvent;
 		this.onSwingThread = onSwingThread;
 		this.onNewThread = onNewThread;
 	}
 
 	/**
-	 * Handle the running of the final target method.
+	 * Handle the running of the function.
 	 *
 	 * @param ae The action event that triggered this invocation.
 	 */
 	protected void invoke(ActionEvent ae)
 	{
-		try
-		{
-			if(passEvent)
-				method.invoke(target, ae);
-			else
-				method.invoke(target);
-		}
-		catch(IllegalAccessException ex)
-		{
-			log.error(String.format("Failed to call '%s'", method), ex);
-			throw new IllegalArgumentException(ex);
-		}
-		catch(IllegalArgumentException ex)
-		{
-			log.error(String.format("Failed to call '%s'", method), ex);
-			throw new IllegalArgumentException(ex);
-		}
-		catch(InvocationTargetException ex)
-		{
-			log.error(String.format("Failed to call '%s'", method), ex);
-			throw new IllegalArgumentException(ex);
-		}
+		if(passEvent)
+			function.addParameter(ae);
+		function.call();
 	}
 
 	/**
@@ -116,68 +101,36 @@ public class ButtonConnector implements ActionListener
 	}
 
 	/**
-	 * Connect a button to the given target object. The method on the
-	 * target object must be publicly accessible to be called. The
-	 * arguments on the method must be either none, or an ActionEvent
-	 * based on the value of passEvent.
+	 * Create a new ButtonConnector and add it as an ActionListener
+	 * on the given button.
 	 * <p/>
-	 *
-	 * @param button The button to list for actions on.
-	 * @param target The target object to call a method on
-	 * 		when the action occurs.
-	 * @param method The method name to call.
-	 * @param passEvent Whether or not to pass the ActionEvent to
-	 * 		the given method.
+	 * @see ButtonConnector#ButtonConnector(Function,
+	 * 			boolean, boolean, boolean)
+	 */
+	public static void connect(AbstractButton button, Function function,
+			boolean passEvent, boolean onSwingThread, boolean onNewThread)
+	{
+		ButtonConnector connector = new ButtonConnector(function,
+				passEvent, onSwingThread, onNewThread);
+		button.addActionListener(connector);
+	}
+
+	/**
+	 * Connect the given button to an ActionListener that will call
+	 * &quot;method&quot; on &quot;target&quot;.
 	 */
 	public static void connect(AbstractButton button, Object target,
 			String method, boolean passEvent,
 			boolean onSwingThread, boolean onNewThread)
 	{
-		Class params[];
-
-		if(passEvent)
-			params = new Class[] { ActionEvent.class };
-		else
-			params = new Class[] { };
-
-		Method m = null;
-
-		try
-		{
-			// get the method
-			m = target.getClass().getMethod(method, params);
-			// add a new button connector to the button
-			button.addActionListener(
-					new ButtonConnector(target, m, passEvent,
-						onSwingThread, onNewThread));
-
-			if(log.isDebugEnabled())
-				log.debug(String.format("Connected button '%s' to " +
-							"method '%s'", button, m));
-		}
-		catch(NoSuchMethodException ex)
-		{
-			String emsg = String.format("Failed to connect button, method " +
-						"'%s' doesn't exist or isn't public in class '%s'",
-						method, target.getClass().getName());
-			log.error(emsg, ex);
-			throw new IllegalArgumentException(emsg, ex);
-		}
-		catch(SecurityException ex)
-		{
-			log.error("Failed to connect button, security error", ex);
-			throw new IllegalArgumentException(ex);
-		}
+		Function f = new InstanceFunction(target.getClass(), method, target);
+		connect(button, f, passEvent, onSwingThread, onNewThread);
 	}
 
 	/**
 	 * Convenience method with defaults. Defaults to calling
 	 * the handler without passing the event and running it on the Worker
 	 * thread.
-	 *
-	 * @param button Button to connect.
-	 * @param target Target object exposing handler.
-	 * @param method Name of handler method.
 	 */
 	public static void connect(AbstractButton button,
 			Object target, String method)
