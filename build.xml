@@ -1,34 +1,62 @@
 <?xml version="1.0"?>
 
 <project name="apperk" default="javadoc">
-    <import file="../../../test/library-locator.xml"/>
-    <property file="../../../test/${propertyFile}"/>
 
-    <path id="project.classpath">
-        <fileset dir="${dir.spring}"><include name="**/*.jar"/></fileset>
-        <fileset dir="${dir.jgoodies}"><include name="**/*.jar"/></fileset>
-        <fileset dir="${dir.foxtrot}"><include name="**/*.jar"/></fileset>
-        <fileset dir="${dir.glazedlists}"><include name="**/*.jar"/></fileset>
-        <fileset dir="lib"><include name="**/*.jar"/></fileset>
-    </path>
+	<import file="../test/library-locator.xml"/>
+	<property file="../test/${propertyFile}"/>
+
+	<path id="project.classpath">
+		<fileset dir="${dir.spring}"><include name="**/*.jar"/></fileset>
+		<fileset dir="${dir.jgoodies}"><include name="**/*.jar"/></fileset>
+		<fileset dir="${dir.foxtrot}"><include name="**/*.jar"/></fileset>
+		<fileset dir="${dir.glazedlists}"><include name="**/*.jar"/></fileset>
+		<fileset dir="${dir.functionalj}"><include name="**/*.jar"/></fileset>
+		<fileset dir="${dir.commons-dbcp}"><include name="**/*.jar"/></fileset>
+		<fileset dir="${dir.commons-pool}"><include name="**/*.jar"/></fileset>
+		<fileset dir="${dir.commons-collections}"><include name="**/*.jar"/></fileset>
+		<fileset dir="${dir.jdbc-drivers}"><include name="**/*.jar"/></fileset>
+		<fileset dir="${dir.junit}"><include name="**/*.jar"/></fileset>
+		<fileset dir="lib"><include name="**/*.jar"/></fileset>
+		<pathelement path="build/jar"/>
+	</path>
 
 	<target name="clean">
 		<delete dir="build"/>
 	</target>
 
-    <target name="init">
-        <mkdir dir="build"/>
-        <mkdir dir="build/javadoc"/>
-        <mkdir dir="build/jar"/>
-    </target>
+	<target name="init">
+		<mkdir dir="build"/>
+		<mkdir dir="build/javadoc"/>
+		<mkdir dir="build/jar"/>
+		<mkdir dir="build/test"/>
+
+		<copy todir="build/test">
+			<fileset dir="test/resource"/>
+			<fileset file="../test/dataSource.xml"/>
+			<fileset file="../test/db.scratch01.properties"/>
+			<fileset file="../test/db.scratch02.properties"/>
+			<fileset file="../test/log4j.properties"/>
+		</copy>
+	</target>
 
 	<target name="compile" depends="init">
-		<javac
+		<javac debug="true"
 			srcdir="src"
 			destdir="build/jar"
 			classpathref="project.classpath">
 			<include name="**/*.java"/>
 		</javac>
+
+		<javac debug="true"
+			srcdir="test/src"
+			destdir="build/test"
+			classpathref="project.classpath">
+			<include name="**/*.java"/>
+		</javac>
+	</target>
+
+	<target name="jar" depends="compile">
+		<jar jarfile="build/apperk-SNAPSHOT.jar" basedir="build/jar"/>
 	</target>
 
 	<target name="run" depends="compile">
@@ -51,38 +79,62 @@
 		</java>
 	</target>
 
-    <target name="javadoc" description="Generate Javadocs" depends="init">
-        <javadoc destdir="build/javadoc" defaultexcludes="yes"
-            windowtitle="apperk javadoc">
-            <doctitle><![CDATA[<h1>apperk</h1>]]></doctitle>
-            <bottom><![CDATA[<i>Copyright (C) 2005 Improved Ideas, Inc.</i>]]></bottom>
+	<target name="javadoc" description="Generate Javadocs" depends="init">
+		<javadoc destdir="build/javadoc" defaultexcludes="yes"
+			windowtitle="apperk javadoc">
+			<doctitle><![CDATA[<h1>apperk</h1>]]></doctitle>
+			<bottom><![CDATA[<i>Copyright (C) 2005 Improved Ideas, Inc.</i>]]></bottom>
 
-            <link href="http://stephenw.improvedideas.com/pkgdoc/spring-1.2.5/api/"/>
-            <link href="http://stephenw.improvedideas.com/pkgdoc/jdk-1_5_0-doc/docs/api/"/>
-            <link href="http://stephenw.improvedideas.com/pkgdoc/j2eeri-1_4-doc-api/apidocs/"/>
+			<link href="http://stephenw.improvedideas.com/pkgdoc/spring-1.2.5/api/"/>
+			<link href="http://stephenw.improvedideas.com/pkgdoc/jdk-1_5_0-doc/docs/api/"/>
+			<link href="http://stephenw.improvedideas.com/pkgdoc/j2eeri-1_4-doc-api/apidocs/"/>
 
-            <!--
-            <group title="Remoting Services"
-                packages="com.aspenenergy:com.aspenenergy.*"/>
-                -->
+			<!--
+			<group title="Remoting Services"
+				packages="com.aspenenergy:com.aspenenergy.*"/>
+				-->
 
-            <!-- had to use this instead of project.classpath because it was
-                too long since this task runs javadoc as a native program -->
-            <!--
-            <classpath>
-                <fileset dir="lib">
-                    <include name="**/*.jar"/>
-                </fileset>
-                <fileset dir="${dir.junit}"><include name="**/*.jar"/></fileset>
-            </classpath>
-            -->
-            <classpath>
-                <path refid="project.classpath"/>
-            </classpath>
+			<!-- had to use this instead of project.classpath because it was
+				too long since this task runs javadoc as a native program -->
+			<!--
+			<classpath>
+				<fileset dir="lib">
+					<include name="**/*.jar"/>
+				</fileset>
+				<fileset dir="${dir.junit}"><include name="**/*.jar"/></fileset>
+			</classpath>
+			-->
+			<classpath>
+				<path refid="project.classpath"/>
+			</classpath>
 
-            <fileset dir=".">
-                <include name="src/**/*.java"/>
-            </fileset>
-        </javadoc>
-    </target>
+			<fileset dir=".">
+				<include name="src/**/*.java"/>
+			</fileset>
+		</javadoc>
+	</target>
+
+	<target name="test" depends="jar">
+		<junit printsummary="true" fork="true">
+			<classpath>
+				<path location="build/test"/>
+				<path refid="project.classpath"/>
+			</classpath>
+
+			<formatter type="plain" usefile="false"/>
+			<!--
+			<formatter type="brief" usefile="false"/>
+			-->
+
+			<batchtest fork="yes">
+				<fileset dir="build/test">
+					<include name="apperk/**/*Test.class"/>
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+
+	<target name="dist" depends="jar,javadoc"/>
+
 </project>
+
