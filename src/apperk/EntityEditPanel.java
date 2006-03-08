@@ -22,7 +22,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.FormSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.layout.Sizes;
-import org.apache.commons.beanutils.PropertyUtils;
+//import org.apache.commons.beanutils.PropertyUtils;
 
 /**
  * Prototype edit panel for a generic entity. This builds a form on-the-fly
@@ -97,23 +97,25 @@ public class EntityEditPanel extends JPanel
         // properties of the entity
         Map<String, Object> props = null;
 
-        try
-        {
-            // obtain the properties from beanutils
-            props = PropertyUtils.describe(o);
-        }
-        catch (NoSuchMethodException e)
-        {
-            // TODO
-        }
-        catch (InvocationTargetException e)
-        {
-            // TODO
-        }
-        catch (IllegalAccessException e)
-        {
-            // TODO
-        }
+		if(true)
+        //try
+        //{
+        //    // obtain the properties from beanutils
+			throw new IllegalArgumentException("BeanUtils needs port");
+        //    //props = PropertyUtils.describe(o);
+        //}
+        //catch (NoSuchMethodException e)
+        //{
+        //    // TODO
+        //}
+        //catch (InvocationTargetException e)
+        //{
+        //    // TODO
+        //}
+        //catch (IllegalAccessException e)
+        //{
+        //    // TODO
+        //}
 
         // create the row specs for the property editors
         for(int i = 0; i < displayProps.length; ++i)

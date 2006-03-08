@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.beanutils.DynaClass;
-import org.apache.commons.beanutils.DynaProperty;
-import org.apache.commons.beanutils.WrapDynaClass;
+//import org.apache.commons.beanutils.DynaClass;
+//import org.apache.commons.beanutils.DynaProperty;
+//import org.apache.commons.beanutils.WrapDynaClass;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
@@ -24,8 +24,8 @@ public class EntityDisplayDescriptor implements InitializingBean
 {
 	private Class entityClass;
 	private String entityName;
-	private List<DynaProperty> displayProperties =
-		new ArrayList<DynaProperty>();
+	private List/*<DynaProperty>*/ displayProperties =
+		new ArrayList/*<DynaProperty>*/();
 	private List<String> displayPropertyNames;
 	private Map<String, String> displayNames = new HashMap<String, String>();
 	private List<String> excludePropertyNames = null;
@@ -39,6 +39,7 @@ public class EntityDisplayDescriptor implements InitializingBean
 	 */
 	public void afterPropertiesSet() throws Exception
 	{
+		/*
 		if(entityClass == null)
 		{
 			throw new IllegalArgumentException("entityClass cannot be null");
@@ -88,6 +89,7 @@ public class EntityDisplayDescriptor implements InitializingBean
 						generateProperName(dp.getName()));
 			}
 		}
+		*/
 	}
 
 	/**

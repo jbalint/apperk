@@ -26,7 +26,7 @@ public class CriteriaDemo
 		Vector entityList = new Vector();
 		for(EntityDisplayDescriptor edd : entities2)
 		{
-			entityList.add(edd.getEntityName());
+			//entityList.add(edd.getEntityName());
 		}
 
 

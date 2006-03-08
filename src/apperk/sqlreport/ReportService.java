@@ -3,16 +3,25 @@ package apperk.sqlreport;
 import java.util.List;
 
 /**
- * The interface to the SQL report backend.
+ * The interface to a report backend.
  */
 public interface ReportService
 {
 	/**
-	 * Provides access to parameter lists for reports.
+	 * Provides the report definition for a named report. This includes
+	 * all information necessary to gather input data and display the
+	 * results for the report.
 	 *
 	 * @param reportName The report name to retrieve param defs for.
-	 * @return The {@link InputParameterDefinition}s for the named report.
+	 * @return The {@link ReportDefinition} for the named report.
 	 */
-	List<InputParameterDefinition> getParameters(String reportName);
+	ReportDefinition getReportDefinition(String reportName);
+
+	/**
+	 * Provides a list of reports available from this service.
+	 *
+	 * @return The names of available reports.
+	 */
+	List<String> getReportNames();
 }
 

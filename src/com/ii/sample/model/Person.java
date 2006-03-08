@@ -10,7 +10,7 @@ public class Person extends NamedEntity {
     /**
      * Sets Telephone
      *
-     * @param    Telephone           a  String
+     * @param    telephone           a  String
      */
     public void setTelephone(String telephone)
     {
