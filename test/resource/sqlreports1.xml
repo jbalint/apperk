@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE beans PUBLIC
+	"-//SPRING//DTD BEAN//EN"
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<bean name="reportService" class="apperk.sqlreport.SqlReportService">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="bindingStrategy">
+			<bean class="apperk.sqlreport.SessionVariableBinder"/>
+		</property>
+		<property name="reports">
+			<list>
+				<bean class="apperk.sqlreport.SqlReportDefinition">
+					<property name="name" value="Test Report 1"/>
+					<property name="fieldDisplayNames">
+						<map>
+							<entry key="acct_no" value="Account Number"/>
+							<entry key="bal" value="Account Balance"/>
+							<entry key="name" value="Customer Name"/>
+						</map>
+					</property>
+					<property name="availableFields"
+						value="acct_no,bal,name,cust_id,acct_id"/>
+					<property name="defaultViewFields"
+						value="acct_no,bal,name"/>
+					<property name="entityRefFields">
+						<map>
+							<entry key="acct_id" value="com.xyz.Account"/>
+							<entry key="cust_id" value="com.xyz.Customer"/>
+						</map>
+					</property>
+					<property name="queryText">
+						<value>
+						<![CDATA[
+							select acct_no, bal, name, acct_id, cust_id
+							from sqlreport_test1
+							where bal > @bal
+						]]>
+						</value>
+					</property>
+					<property name="inputParameters">
+						<list>
+							<bean class="apperk.sqlreport.InputParameterDefinition">
+								<property name="name" value="bal"/>
+								<property name="display"
+									value="Minimum Balance"/>
+								<property name="type" value="INTEGER"/>
+							</bean>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+</beans>
+

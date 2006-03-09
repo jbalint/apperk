@@ -6,12 +6,14 @@
 	<property file="../test/${propertyFile}"/>
 
 	<path id="project.classpath">
+		<fileset dir="${dir.log4j}"><include name="**/*.jar"/></fileset>
 		<fileset dir="${dir.spring}"><include name="**/*.jar"/></fileset>
 		<fileset dir="${dir.jgoodies}"><include name="**/*.jar"/></fileset>
 		<fileset dir="${dir.foxtrot}"><include name="**/*.jar"/></fileset>
 		<fileset dir="${dir.glazedlists}"><include name="**/*.jar"/></fileset>
 		<fileset dir="${dir.functionalj}"><include name="**/*.jar"/></fileset>
 		<fileset dir="${dir.commons-dbcp}"><include name="**/*.jar"/></fileset>
+		<fileset dir="${dir.commons-lang}"><include name="**/*.jar"/></fileset>
 		<fileset dir="${dir.commons-pool}"><include name="**/*.jar"/></fileset>
 		<fileset dir="${dir.commons-collections}"><include name="**/*.jar"/></fileset>
 		<fileset dir="${dir.jdbc-drivers}"><include name="**/*.jar"/></fileset>

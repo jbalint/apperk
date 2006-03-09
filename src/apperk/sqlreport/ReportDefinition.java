@@ -11,7 +11,7 @@ import java.util.Set;
  * client will handle view-specific portions, eg. column-width, row coloring
  * constraints, etc.
  */
-public class ReportDefinition
+public abstract class ReportDefinition
 {
 	private String name;
 	private Map<String, String> fieldDisplayNames;
