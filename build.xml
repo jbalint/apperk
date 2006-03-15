@@ -39,6 +39,12 @@
 			<fileset file="../test/db.scratch02.properties"/>
 			<fileset file="../test/log4j.properties"/>
 		</copy>
+
+		<copy todir="build/jar">
+			<fileset dir="src">
+				<include name="**/*.properties"/>
+			</fileset>
+		</copy>
 	</target>
 
 	<target name="compile" depends="init">

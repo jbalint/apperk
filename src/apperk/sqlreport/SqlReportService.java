@@ -259,7 +259,7 @@ public class SqlReportService implements ReportService
 	/**
 	 * Set the reports available in this service.
 	 *
-	 * @param reports The map of report name to report def.
+	 * @param reportList The map of report name to report def.
 	 */
 	public void setReports(List<SqlReportDefinition> reportList)
 	{

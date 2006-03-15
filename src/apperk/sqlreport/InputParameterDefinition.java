@@ -13,6 +13,7 @@ public class InputParameterDefinition implements Serializable
 	private String name;
 	private String display;
 	private String type;
+	private String validationRules;
 	private List displayValues;
 	private List paramValues;
 
@@ -61,6 +62,15 @@ public class InputParameterDefinition implements Serializable
 	/**
 	 * Get parameter type.
 	 * <font color="red">TODO: docs</font>
+	 * <p/>
+	 * Probably accept values of:<br/>
+	 * <ul>
+	 * <li>INTEGER</li>
+	 * <li>BOOLEAN</li>
+	 * <li>STRING</li>
+	 * <li>DATE</li>
+	 * <li>Combobox/radio buttons... how?</li>
+	 * </ul>
 	 *
 	 * @return type as String.
 	 */
@@ -77,6 +87,27 @@ public class InputParameterDefinition implements Serializable
 	public void setType(String type)
 	{
 	    this.type = type;
+	}
+
+	/**
+	 * Get validation rules.
+	 * <font color="red">TODO: docs</font>
+	 *
+	 * @return validation rules
+	 */
+	public String getValidationRules()
+	{
+		return validationRules;
+	}
+
+	/**
+	 * Set validation rules.
+	 *
+	 * @param validationRules the validation rules.
+	 */
+	public void setValidationRules(String validationRules)
+	{
+		this.validationRules = validationRules;
 	}
 
 	/**

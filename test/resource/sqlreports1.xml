@@ -6,13 +6,16 @@
 
 <beans>
 
+	<!-- The main report service under test -->
 	<bean name="reportService" class="apperk.sqlreport.SqlReportService">
 		<property name="dataSource" ref="dataSource"/>
 		<property name="bindingStrategy">
 			<bean class="apperk.sqlreport.SessionVariableBinder"/>
 		</property>
+		<!-- List of reports -->
 		<property name="reports">
 			<list>
+				<!-- A "simple" report definition -->
 				<bean class="apperk.sqlreport.SqlReportDefinition">
 					<property name="name" value="Test Report 1"/>
 					<property name="fieldDisplayNames">
@@ -32,6 +35,8 @@
 							<entry key="cust_id" value="com.xyz.Customer"/>
 						</map>
 					</property>
+					<!-- The SQL query text for the report, this alternatively
+						could have been provided as a classpath resource -->
 					<property name="queryText">
 						<value>
 						<![CDATA[
@@ -48,6 +53,8 @@
 								<property name="display"
 									value="Minimum Balance"/>
 								<property name="type" value="INTEGER"/>
+								<property name="validationRules"
+									value="required,min(0)"/>
 							</bean>
 						</list>
 					</property>
