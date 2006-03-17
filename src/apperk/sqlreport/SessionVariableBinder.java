@@ -20,12 +20,12 @@ public class SessionVariableBinder implements BindingStrategy
 	 * @param params to bind.
 	 * @throws SQLException if there is any error
 	 */
-	public void bind(Connection con, PreparedStatement stmt, Map params)
+	public void bind(Connection con, PreparedStatement stmt,
+			Map<String, Object> params)
 		throws SQLException
 	{
-		for(Object pobj : params.entrySet())
+		for(Map.Entry<String, Object> param : params.entrySet())
 		{
-			Map.Entry<String, Object> param = (Map.Entry<String, Object>)pobj;
 			String sql = String.format("set @%s = ?", param.getKey());
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setObject(1, param.getValue());

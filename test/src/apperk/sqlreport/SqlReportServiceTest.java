@@ -27,8 +27,6 @@ public class SqlReportServiceTest
 	public void testSimpleReport()
 	{
 		String reportName = "Test Report 1";
-		ReportDefinition simpleReport =
-			reportService.getReportDefinition(reportName);
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("bal", 100);
 		List<Map<String, Object>> result = reportService

@@ -48,7 +48,7 @@ public class SessionVariableBindingTest
 			{
 				PreparedStatement repStmt = con.prepareStatement(REPORT_SQL);
 
-				Map params = new HashMap();
+				Map<String, Object> params = new HashMap<String, Object>();
 				params.put(SESSION_VAR_NAME, SESSION_PARAM_VALUE);
 
 				BindingStrategy bind = new SessionVariableBinder();
@@ -78,7 +78,7 @@ public class SessionVariableBindingTest
 			{
 				PreparedStatement repStmt = con.prepareStatement(REPORT_SQL);
 
-				Map params = new HashMap();
+				Map<String, Object> params = new HashMap<String, Object>();
 				params.put(SESSION_VAR_NAME, "SOME_OTHER_RANDOM_VALUE");
 
 				BindingStrategy bind = new SessionVariableBinder();

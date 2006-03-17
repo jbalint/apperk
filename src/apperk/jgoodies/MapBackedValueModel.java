@@ -11,7 +11,7 @@ import com.jgoodies.binding.value.AbstractValueModel;
  */
 public class MapBackedValueModel extends AbstractValueModel
 {
-	protected Map map;
+	protected Map<String, Object> map;
 	protected String key;
 
 	/**
@@ -20,7 +20,7 @@ public class MapBackedValueModel extends AbstractValueModel
 	 * @param map The map to use to access the entry.
 	 * @param key The key loopup the entry.
 	 */
-	public MapBackedValueModel(Map map, String key)
+	public MapBackedValueModel(Map<String, Object> map, String key)
 	{
 		this.map = map;
 		this.key = key;

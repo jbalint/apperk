@@ -21,8 +21,7 @@ public class CriteriaDemo
 		frame.setContentPane(holder);
 		//holder.
 		Map entities = appctx.getBeansOfType(EntityDisplayDescriptor.class);
-		Set<EntityDisplayDescriptor> entities2 =
-			(Set<EntityDisplayDescriptor>)entities.entrySet();
+		Set<EntityDisplayDescriptor> entities2 = entities.entrySet();
 		Vector entityList = new Vector();
 		for(EntityDisplayDescriptor edd : entities2)
 		{

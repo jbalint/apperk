@@ -12,6 +12,7 @@
 		<fileset dir="${dir.foxtrot}"><include name="**/*.jar"/></fileset>
 		<fileset dir="${dir.glazedlists}"><include name="**/*.jar"/></fileset>
 		<fileset dir="${dir.functionalj}"><include name="**/*.jar"/></fileset>
+		<fileset dir="${dir.jcalendar}"><include name="**/*.jar"/></fileset>
 		<fileset dir="${dir.commons-dbcp}"><include name="**/*.jar"/></fileset>
 		<fileset dir="${dir.commons-lang}"><include name="**/*.jar"/></fileset>
 		<fileset dir="${dir.commons-pool}"><include name="**/*.jar"/></fileset>
@@ -90,8 +91,17 @@
 	<target name="javadoc" description="Generate Javadocs" depends="init">
 		<javadoc destdir="build/javadoc" defaultexcludes="yes"
 			windowtitle="apperk javadoc">
-			<doctitle><![CDATA[<h1>apperk</h1>]]></doctitle>
-			<bottom><![CDATA[<i>Copyright (C) 2005 Improved Ideas, Inc.</i>]]></bottom>
+			<doctitle><![CDATA[
+				<h1>
+					<font color="purple">a</font>
+					<font color="gold">p</font>
+					<font color="green">p</font>
+					<font color="brown">e</font>
+					<font color="blue">r</font>
+					<font color="red">k</font>
+				</h1>
+			]]></doctitle>
+			<bottom><![CDATA[<i>Copyright (C) 2006 Improved Ideas, Inc.</i>]]></bottom>
 
 			<link href="http://stephenw.improvedideas.com/pkgdoc/spring-1.2.5/api/"/>
 			<link href="http://stephenw.improvedideas.com/pkgdoc/jdk-1_5_0-doc/docs/api/"/>

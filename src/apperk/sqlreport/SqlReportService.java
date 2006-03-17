@@ -223,7 +223,7 @@ public class SqlReportService implements ReportService
 										"'%s' due to unknown SQL type '%d'",
 										name, type));
 							r.put(name, rs.getObject(i+1));
-					};
+					}
 				}
 			}
 

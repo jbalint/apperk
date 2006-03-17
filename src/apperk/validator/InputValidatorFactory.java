@@ -3,11 +3,11 @@ package apperk.validator;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import apperk.util.ClassMapResourceLoader;
 import org.apache.log4j.Logger;
 
 /**
@@ -39,42 +39,15 @@ public class InputValidatorFactory
 	private static final Logger log =
 		Logger.getLogger(InputValidatorFactory.class);
 
-	private static Map<String, Class> validatorClasses =
-		new HashMap<String, Class>();
+	private static final String CLASS_MAP_RESOURCE =
+		"/apperk/validator/apperk.validators.properties";
+
+	private static Map<String, Class> validatorClasses;
 
 	static
 	{
-		Properties p = new Properties();
-
-		try
-		{
-			p.load(InputValidatorFactory.class.getResourceAsStream(
-					"/apperk/validator/apperk.validators.properties"));
-		}
-		catch(Exception ex)
-		{
-			log.error("Cannot load default validator properties", ex);
-		}
-
-		for(Enumeration e = p.propertyNames(); e.hasMoreElements(); )
-		{
-			String prop = (String)e.nextElement();
-			Class c;
-
-			try
-			{
-				c = Class.forName(p.getProperty(prop));
-			}
-			catch(ClassNotFoundException ex)
-			{
-				log.error(String.format(
-						"Cannot find class '%s' for validator '%s'",
-						p.getProperty(prop), prop));
-				continue;
-			}
-
-			validatorClasses.put(prop, c);
-		}
+		// Load the validator class map
+		validatorClasses = ClassMapResourceLoader.load(CLASS_MAP_RESOURCE);
 	}
 
 	/**

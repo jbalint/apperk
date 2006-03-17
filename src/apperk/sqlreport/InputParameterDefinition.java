@@ -61,17 +61,8 @@ public class InputParameterDefinition implements Serializable
 
 	/**
 	 * Get parameter type.
-	 * <font color="red">TODO: docs</font>
-	 * <p/>
-	 * Probably accept values of:<br/>
-	 * <ul>
-	 * <li>INTEGER</li>
-	 * <li>BOOLEAN</li>
-	 * <li>STRING</li>
-	 * <li>DATE</li>
-	 * <li>Combobox/radio buttons... how?</li>
-	 * </ul>
 	 *
+	 * @see ReportInputFactory
 	 * @return type as String.
 	 */
 	public String getType()
@@ -91,8 +82,8 @@ public class InputParameterDefinition implements Serializable
 
 	/**
 	 * Get validation rules.
-	 * <font color="red">TODO: docs</font>
 	 *
+	 * @see InputValidatorFactory
 	 * @return validation rules
 	 */
 	public String getValidationRules()
