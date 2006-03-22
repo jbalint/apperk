@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE beans PUBLIC
+	"-//SPRING//DTD BEAN//EN"
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<bean name="reportService" class="apperk.sqlreport.SqlReportService">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="bindingStrategy">
+			<bean class="apperk.sqlreport.SessionVariableBinder"/>
+		</property>
+
+		<property name="reports">
+			<list>
+				<bean class="apperk.sqlreport.SqlReportDefinition">
+					<property name="name" value="Name Match Demo"/>
+					<property name="fieldDisplayNames">
+						<map>
+							<entry key="minCount" value="Minimum Name Match"/>
+							<entry key="namePrefix" value="Name Prefix"/>
+						</map>
+					</property>
+					<property name="availableFields"
+						value="name,nameCount"/>
+					<property name="defaultViewFields"
+						value="name,nameCount"/>
+					<!--
+					<property name="entityRefFields">
+						<map>
+							<entry key="acct_id" value="com.xyz.Account"/>
+							<entry key="cust_id" value="com.xyz.Customer"/>
+						</map>
+					</property>
+					-->
+					<property name="queryText">
+						<value>
+						<![CDATA[
+							select
+								contactFirstName as name,
+								count(*) as nameCount
+							from
+								Customer
+							group by 1
+							having count(*) > :minCount
+						]]>
+						</value>
+					</property>
+					<property name="inputParameters">
+						<list>
+							<bean class="apperk.sqlreport.InputParameterDefinition">
+								<property name="name" value="minCount"/>
+								<property name="display"
+									value="Minimum Name Match"/>
+								<property name="type" value="INTEGER"/>
+								<property name="validationRules"
+									value="required,min(1)"/>
+							</bean>
+							<bean class="apperk.sqlreport.InputParameterDefinition">
+								<property name="name" value="namePrefix"/>
+								<property name="display"
+									value="Name Prefix"/>
+								<property name="type" value="STRING"/>
+							</bean>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+</beans>

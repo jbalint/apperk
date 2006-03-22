@@ -110,6 +110,10 @@ public class ReportInputFactory
 		FormFactory.DEFAULT_COLSPEC
 	};
 
+	public ReportInputFactory()
+	{
+	}
+
 	/**
 	 * Creates a new ReportInputPanel that can be used to get the input
 	 * from the user.

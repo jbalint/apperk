@@ -21,7 +21,7 @@ public interface BindingStrategy
 	 * @param params The parameters to be bound.
 	 * @throws SQLException If there is a JDBC error.
 	 */
-	void bind(Connection con, PreparedStatement stmt, Map params)
+	void bind(Connection con, PreparedStatement stmt, Map<String, Object> params)
 		throws SQLException;
 }
 

@@ -19,9 +19,11 @@
 		<fileset dir="${dir.commons-collections}"><include name="**/*.jar"/></fileset>
 		<fileset dir="${dir.jdbc-drivers}"><include name="**/*.jar"/></fileset>
 		<fileset dir="${dir.junit}"><include name="**/*.jar"/></fileset>
-		<fileset dir="lib"><include name="**/*.jar"/></fileset>
-		<pathelement path="build/jar"/>
-	</path>
+        <fileset dir="${dir.emma}"><include name="**/*.jar"/></fileset>
+        <fileset dir="lib"><include name="**/*.jar"/></fileset>
+    </path>
+
+	<taskdef resource="emma_ant.properties" classpathref="project.classpath"/>
 
 	<target name="clean">
 		<delete dir="build"/>
@@ -32,6 +34,15 @@
 		<mkdir dir="build/javadoc"/>
 		<mkdir dir="build/jar"/>
 		<mkdir dir="build/test"/>
+		<mkdir dir="build/test/report"/>
+		<mkdir dir="build/demo"/>
+
+		<copy todir="build/demo">
+			<fileset dir="src">
+				<include name="com/**/*"/>
+				<exclude name="**/*.java"/>
+			</fileset>
+		</copy>
 
 		<copy todir="build/test">
 			<fileset dir="test/resource"/>
@@ -53,14 +64,17 @@
 			srcdir="src"
 			destdir="build/jar"
 			classpathref="project.classpath">
-			<include name="**/*.java"/>
+			<include name="apperk/**/*.java"/>
 		</javac>
 
 		<javac debug="true"
-			srcdir="test/src"
-			destdir="build/test"
+			srcdir="src"
+			destdir="build/demo"
 			classpathref="project.classpath">
-			<include name="**/*.java"/>
+			<classpath>
+				<pathelement path="build/jar"/>
+			</classpath>
+			<include name="com/ii/**/*.java"/>
 		</javac>
 	</target>
 
@@ -68,23 +82,14 @@
 		<jar jarfile="build/apperk-SNAPSHOT.jar" basedir="build/jar"/>
 	</target>
 
-	<target name="run" depends="compile">
-		<java classname="com.ii.sample.MyApplication"
+	<target name="run-sqlreportdemo" depends="compile">
+		<java classname="com.ii.demo.sqlreport.Sample1"
 			fork="true" classpathref="project.classpath">
 			<classpath>
 				<pathelement path="build/jar"/>
+				<pathelement path="build/demo"/>
+				<pathelement path="build/test"/>
 			</classpath>
-		</java>
-	</target>
-
-	<target name="criteriademo" depends="compile">
-		<java classname="com.ii.demo.CriteriaDemo"
-			fork="true" classpathref="project.classpath">
-			<classpath>
-				<pathelement path="build/jar"/>
-			</classpath>
-			<sysproperty key="swing.defaultlaf"
-				value="com.jgoodies.looks.windows.WindowsLookAndFeel"/>
 		</java>
 	</target>
 
@@ -127,29 +132,68 @@
 			</classpath>
 
 			<fileset dir=".">
-				<include name="src/**/*.java"/>
+				<include name="src/apperk/**/*.java"/>
 			</fileset>
 		</javadoc>
 	</target>
 
 	<target name="test" depends="jar">
+		<javac debug="true"
+			srcdir="test/src"
+			destdir="build/test"
+			classpathref="project.classpath">
+			<classpath>
+				<pathelement path="build/jar"/>
+			</classpath>
+			<include name="**/*.java"/>
+		</javac>
+
+		<emma>
+			<instr instrpath="build/jar" destdir="build/test" merge="true"
+				mode="copy" metadatafile="build/test/emma.metadata"
+				filter="+apperk.*,-apperk.*Test"/>
+		</emma>
+
 		<junit printsummary="true" fork="true">
 			<classpath>
 				<path location="build/test"/>
 				<path refid="project.classpath"/>
+				<path location="build/jar"/>
 			</classpath>
 
+			<formatter type="xml"/>
 			<formatter type="plain" usefile="false"/>
 			<!--
 			<formatter type="brief" usefile="false"/>
 			-->
 
-			<batchtest fork="yes">
+			<jvmarg value="-Demma.coverage.out.file=build/test/emma.coverage"/>
+			<jvmarg value="-Demma.coverage.out.merge=true"/>
+
+			<batchtest fork="yes" todir="build/test/report">
 				<fileset dir="build/test">
 					<include name="apperk/**/*Test.class"/>
 				</fileset>
 			</batchtest>
 		</junit>
+
+		<emma>
+			<report sourcepath="src">
+				<fileset dir="build/test">
+					<include name="emma.*"/>
+				</fileset>
+
+				<html outfile="build/test/report/coverage.html"/>
+			</report>
+		</emma>
+
+		<junitreport todir="build/test/report">
+			<fileset dir="build/test/report">
+				<include name="TEST-*.xml"/>
+			</fileset>
+
+			<report format="frames" todir="build/test/report/junit"/>
+		</junitreport>
 	</target>
 
 	<target name="dist" depends="jar,javadoc"/>

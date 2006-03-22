@@ -83,7 +83,7 @@ public class InputParameterDefinition implements Serializable
 	/**
 	 * Get validation rules.
 	 *
-	 * @see InputValidatorFactory
+	 * @see apperk.validator.InputValidatorFactory
 	 * @return validation rules
 	 */
 	public String getValidationRules()

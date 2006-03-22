@@ -20,9 +20,9 @@ public class InputValidator
 	{
 		public boolean isValid(Object o)
 		{
-			if (o == null)
+			if(o == null)
 				return false;
-			if (o instanceof String && o.equals(""))
+			if(o instanceof String && o.equals(""))
 				return false;
 			return true;
 		}
@@ -36,7 +36,7 @@ public class InputValidator
 		{
 			if(params.length > 0)
 				throw new IllegalArgumentException(
-					"Required validation does not take params");
+						"Required validation does not take params");
 		}
 	}
 
@@ -54,18 +54,18 @@ public class InputValidator
 
 		public boolean isValid(Object o)
 		{
-			if (o instanceof String)
+			if(o instanceof String)
 			{
 				try
 				{
 					o = new Double((String)o);
 				}
-				catch (NumberFormatException ex)
+				catch(NumberFormatException ex)
 				{
 					return false;
 				}
 			}
-			else if (!(o instanceof Number))
+			else if(!(o instanceof Number))
 				return false;
 			return ((Number)o).doubleValue() >= min.doubleValue();
 		}
@@ -73,15 +73,15 @@ public class InputValidator
 		public String getMessage(String fieldName)
 		{
 			return String.format("%s must be greater than or equal to %s",
-				fieldName, min);
+					fieldName, min);
 		}
 
 		public void setParams(String[] p)
 		{
-			if (p.length != 1)
+			if(p.length != 1)
 				throw new IllegalArgumentException(
-					"Min validator takes one number parameter");
-			if (p[0].contains("."))
+						"Min validator takes one number parameter");
+			if(p[0].contains("."))
 				min = new Double(p[0]);
 			else
 				min = new Long(p[0]);
@@ -102,18 +102,18 @@ public class InputValidator
 
 		public boolean isValid(Object o)
 		{
-			if (o instanceof String)
+			if(o instanceof String)
 			{
 				try
 				{
 					o = new Double((String)o);
 				}
-				catch (NumberFormatException ex)
+				catch(NumberFormatException ex)
 				{
 					return false;
 				}
 			}
-			else if (!(o instanceof Number))
+			else if(!(o instanceof Number))
 				return false;
 			return ((Number)o).doubleValue() <= max.doubleValue();
 		}
@@ -121,15 +121,15 @@ public class InputValidator
 		public String getMessage(String fieldName)
 		{
 			return String.format("%s must be less than or equal to %s",
-				fieldName, max);
+					fieldName, max);
 		}
 
 		public void setParams(String[] p)
 		{
-			if (p.length != 1)
+			if(p.length != 1)
 				throw new IllegalArgumentException(
-					"Max validator takes one number parameter");
-			if (p[0].contains("."))
+						"Max validator takes one number parameter");
+			if(p[0].contains("."))
 				max = new Double(p[0]);
 			else
 				max = new Long(p[0]);
@@ -152,22 +152,22 @@ public class InputValidator
 
 		public boolean isValid(Object o)
 		{
-			if (o instanceof String)
+			if(o instanceof String)
 			{
 				try
 				{
 					o = new Double((String)o);
 				}
-				catch (NumberFormatException ex)
+				catch(NumberFormatException ex)
 				{
 					return false;
 				}
 			}
-			else if (!(o instanceof Number))
+			else if(!(o instanceof Number))
 				return false;
 
 			double v = ((Number)o).doubleValue();
-			if (v > max.doubleValue())
+			if(v > max.doubleValue())
 				return false;
 			return v >= min.doubleValue();
 		}
@@ -175,21 +175,21 @@ public class InputValidator
 		public String getMessage(String fieldName)
 		{
 			return String.format("%s must be between %s and %s",
-				fieldName, min, max);
+					fieldName, min, max);
 		}
 
 		public void setParams(String[] p)
 		{
-			if (p.length != 2)
+			if(p.length != 2)
 				throw new IllegalArgumentException(
-					"Range validator takes two number parameters");
+						"Range validator takes two number parameters");
 
-			if (p[0].contains("."))
+			if(p[0].contains("."))
 				min = new Double(p[0]);
 			else
 				min = new Long(p[0]);
 
-			if (p[1].contains("."))
+			if(p[1].contains("."))
 				max = new Double(p[1]);
 			else
 				max = new Long(p[1]);
@@ -224,9 +224,9 @@ public class InputValidator
 	{
 		List<String> result = new ArrayList<String>();
 
-		for (Validator v : validators)
+		for(Validator v : validators)
 		{
-			if (!v.isValid(val))
+			if(!v.isValid(val))
 				result.add(v.getMessage(fieldName));
 		}
 

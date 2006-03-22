@@ -1,11 +1,8 @@
 package apperk.validator;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 import apperk.util.ClassMapResourceLoader;
 import org.apache.log4j.Logger;
@@ -50,6 +47,10 @@ public class InputValidatorFactory
 		validatorClasses = ClassMapResourceLoader.load(CLASS_MAP_RESOURCE);
 	}
 
+	public InputValidatorFactory()
+	{
+	}
+
 	/**
 	 * Create a new {@link InputValidator} based on the given validation
 	 * string. The string is of the format
@@ -69,6 +70,9 @@ public class InputValidatorFactory
 	 * </span>
 	 * <p/>
 	 * <font color="red">TODO: handle parsing problems</font>
+	 *
+	 * @param validationString Describe the needed validator
+	 * @return A validator to handle the requested validations
 	 */
 	public static InputValidator createInputValidator(String validationString)
 	{
@@ -86,7 +90,7 @@ public class InputValidatorFactory
 
 			String[] p = s.split("\\(|\\)");
 			String validatorName = p[0];
-			String[] params = null;
+			String[] params = new String[0];
 
 			if(p.length > 1)
 				params = p[1].split(",");
@@ -103,9 +107,7 @@ public class InputValidatorFactory
 			try
 			{
 				validator = (Validator)c.newInstance();
-
-				if(params != null)
-					validator.setParams(params);
+				validator.setParams(params);
 			}
 			catch(ClassCastException ex)
 			{
