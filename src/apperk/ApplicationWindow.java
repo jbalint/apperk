@@ -114,7 +114,7 @@ public class ApplicationWindow implements InitializingBean, WindowListener
     }
 
     /**
-     * {@link javax.swing.event.WindowListener} method that notifies when the
+     * {@link java.awt.event.WindowListener} method that notifies when the
      * window is opened. We use this opportunity to open an default internal
      * frames provided in the configuration.
      *
