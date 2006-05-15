@@ -137,7 +137,7 @@
 		</javadoc>
 	</target>
 
-	<target name="test" depends="jar">
+	<target name="test" depends="jar" description="Run project unit tests">
 		<javac debug="true"
 			srcdir="test/src"
 			destdir="build/test"
@@ -196,7 +196,8 @@
 		</junitreport>
 	</target>
 
-	<target name="dist" depends="jar,javadoc"/>
+	<target name="dist" depends="jar,javadoc"
+		description="Generate dist jar and JavaDocs"/>
 
 </project>
 
