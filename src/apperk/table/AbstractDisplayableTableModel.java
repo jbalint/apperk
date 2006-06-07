@@ -32,6 +32,8 @@ import javax.swing.table.AbstractTableModel;
  */
 public abstract class AbstractDisplayableTableModel extends AbstractTableModel
 		implements TableDisplayModel {
+	private static final int DEFAULT_COLUMN_WIDTH = 75;
+
 	/**
 	 * Implement the {@link javax.swing.table.TableCellRenderer} interface
 	 * and retrieve the renderer component.
@@ -101,12 +103,23 @@ public abstract class AbstractDisplayableTableModel extends AbstractTableModel
 	 * Retrieve the column width from the column widths array.
 	 */
 	public int getColumnWidth(int columnIndex) {
-		return getColumnWidths()[columnIndex];
+		int[] widths = getColumnWidths();
+		if(widths == null)
+			return DEFAULT_COLUMN_WIDTH;
+		else
+			return widths[columnIndex];
 	}
 
 	protected abstract String[] getColumnNames();
 
-	protected abstract int[] getColumnWidths();
+	/**
+	 * Provide the column widths. Defaults to 'null' which uses the
+	 * value of {@link #DEFAULT_COLUMN_WIDTH}.
+	 * @return The array of column widths.
+	 */
+	protected int[] getColumnWidths() {
+		return null;
+	}
 
 	/**
 	 * Provides a better (than {@link AbstractTableModel}) default
