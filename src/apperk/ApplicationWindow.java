@@ -22,7 +22,7 @@ import org.springframework.beans.factory.InitializingBean;
  */
 public class ApplicationWindow implements InitializingBean, WindowListener
 {
-    private static final Logger log = Logger.getLogger(ApplicationWindow.class);
+	private static final Logger log = Logger.getLogger(ApplicationWindow.class);
 
     public static final int CASCADE_X_SHIFT = 20;
     public static final int CASCADE_Y_SHIFT = 20;
@@ -155,7 +155,7 @@ public class ApplicationWindow implements InitializingBean, WindowListener
     }
 
     /**
-     * {@link javax.swing.event.WindowListener} method that notifies when the
+     * {@link java.awt.event.WindowListener} method that notifies when the
      * window is closing. Since we specify DO_NOTHING_ON_CLOSE in the
      * constructor, we are responsible for closing the frame here. Checks the
      * configuration whether or not we should confirm, then closes the frame.

@@ -169,7 +169,7 @@ public class SqlReportService implements ReportService
 						case Types.DATE:
 						case Types.TIMESTAMP:
 							r.put(name, rs.getDate(i+1));
-							if(log.isTraceEnabled())
+							if(log.isDebugEnabled())
 								logColumnFill(rnum, name, type, "date",
 										rs.getDate(i+1));
 							break;
@@ -179,7 +179,7 @@ public class SqlReportService implements ReportService
 						case Types.FLOAT:
 						case Types.REAL:
 							r.put(name, rs.getDouble(i+1));
-							if(log.isTraceEnabled())
+							if(log.isDebugEnabled())
 								logColumnFill(rnum, name, type, "double",
 										rs.getDouble(i+1));
 							break;
@@ -189,7 +189,7 @@ public class SqlReportService implements ReportService
 						case Types.INTEGER:
 						case Types.TINYINT:
 							r.put(name, rs.getLong(i+1));
-							if(log.isTraceEnabled())
+							if(log.isDebugEnabled())
 								logColumnFill(rnum, name, type, "long",
 										rs.getLong(i+1));
 							break;
@@ -198,21 +198,21 @@ public class SqlReportService implements ReportService
 						case Types.LONGVARCHAR:
 						case Types.VARCHAR:
 							r.put(name, rs.getString(i+1));
-							if(log.isTraceEnabled())
+							if(log.isDebugEnabled())
 								logColumnFill(rnum, name, type, "string",
 										rs.getString(i+1));
 							break;
 
 						case Types.BOOLEAN:
 							r.put(name, rs.getBoolean(i+1));
-							if(log.isTraceEnabled())
+							if(log.isDebugEnabled())
 								logColumnFill(rnum, name, type, "boolean",
 										rs.getBoolean(i+1));
 							break;
 
 						case Types.NULL:
 							r.put(name, null);
-							if(log.isTraceEnabled())
+							if(log.isDebugEnabled())
 								logColumnFill(rnum, name, type, "null", null);
 							break;
 
@@ -245,7 +245,7 @@ public class SqlReportService implements ReportService
 		protected void logColumnFill(int rownum, String name, int sqltype,
 				String restype, Object value)
 		{
-			log.trace(String.format(
+			log.debug(String.format(
 						"Column filled " +
 						"r='%d',col='%s',sqltype='%d',restype='%s',val='%s'",
 						rownum, name, sqltype, restype, value));
