@@ -22,13 +22,13 @@ import javax.swing.table.AbstractTableModel;
  * using the widths, headers and renderers retrieved from the table
  * display model.
  * <p/>
- * <code>
+ * <pre>
  * MyDisplayableTableModel tableModel = new MyDisplayableTableModel(someData);
  * TableColumnModel columnModel = 
  * 		TableColumnModelFactory.buildTableColumnModel(tableModel);
  * JTable jtable = new JTable(tableModel, columnModel);
  * panel.add(new JScrollPane(jtable));
- * </code>
+ * </pre>
  */
 public abstract class AbstractDisplayableTableModel extends AbstractTableModel
 		implements TableDisplayModel {

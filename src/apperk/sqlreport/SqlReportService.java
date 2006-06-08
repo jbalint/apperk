@@ -23,7 +23,7 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
  */
 public class SqlReportService implements ReportService
 {
-	private static final Logger log = Logger.getLogger(SqlReportService.class);
+	//private static final Logger log = Logger.getLogger(SqlReportService.class);
 
 	protected Map<String, SqlReportDefinition> reports =
 		new HashMap<String, SqlReportDefinition>();

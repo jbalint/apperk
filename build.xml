@@ -97,15 +97,13 @@
 		<javadoc destdir="build/javadoc" defaultexcludes="yes"
 			windowtitle="apperk javadoc">
 			<doctitle><![CDATA[
-				<h1>
 					<font color="purple">a</font>
 					<font color="gold">p</font>
 					<font color="green">p</font>
 					<font color="brown">e</font>
 					<font color="blue">r</font>
 					<font color="red">k</font>
-				</h1>
-			]]></doctitle>
+				]]></doctitle>
 			<bottom><![CDATA[<i>Copyright (C) 2006 Improved Ideas, Inc.</i>]]></bottom>
 
 			<link href="http://stephenw.improvedideas.com/pkgdoc/spring-1.2.5/api/"/>
