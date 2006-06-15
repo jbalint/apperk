@@ -35,6 +35,16 @@ public abstract class AbstractDisplayableTableModel extends AbstractTableModel
 	private static final int DEFAULT_COLUMN_WIDTH = 75;
 
 	/**
+	 * Provide the column name for things that expect it from the table model.
+	 * 
+	 * @param column Index of column.
+	 * @return Column name.
+	 */
+	public String getColumnName(int column) {
+		return getColumnNames()[column];
+	}
+
+	/**
 	 * Implement the {@link javax.swing.table.TableCellRenderer} interface
 	 * and retrieve the renderer component.
 	 */

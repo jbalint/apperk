@@ -5,17 +5,19 @@ import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SpinnerDateModel;
+
+import org.apache.log4j.Logger;
 
 import apperk.jgoodies.MapBackedValueModel;
 import apperk.util.ClassMapResourceLoader;
+
 import com.jgoodies.binding.adapter.Bindings;
-import com.jgoodies.binding.adapter.SpinnerAdapterFactory;
 import com.jgoodies.binding.value.BufferedValueModel;
 import com.jgoodies.binding.value.ConverterFactory;
 import com.jgoodies.binding.value.ValueModel;
@@ -27,7 +29,6 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.toedter.calendar.JDateChooser;
-import org.apache.log4j.Logger;
 
 /**
  * Factory used to create the input UI for a report. This uses an internal
@@ -313,10 +314,13 @@ public class ReportInputFactory
 
 		public JComponent getBoundEditComponent(ValueModel valueModel)
 		{
+			// TODO: fix the way this is bound
 			JDateChooser dateChooser = new JDateChooser();
+			/*
 			SpinnerDateModel mod = SpinnerAdapterFactory
 				.createDateAdapter(valueModel, getDefaultValue());
 			dateChooser.setModel(mod);
+			*/
 			return dateChooser;
 		}
 	}
