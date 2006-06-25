@@ -4,6 +4,8 @@ import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.swing.EventComboBoxModel;
 
 import java.beans.IntrospectionException;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -33,6 +35,9 @@ public class PropertyDisplayEventListModel<E> extends EventComboBoxModel<E>
 	protected E selectedEntity;
 	/** A raw EventList. Only other copy is proxied to execute on EDT. */
 	protected EventList<E> rawSource;
+	
+	protected PropertyChangeSupport propSupport = 
+		new PropertyChangeSupport(this);
 
 	/**
 	 * Construct a new model using the displayProperty as the name
@@ -65,7 +70,7 @@ public class PropertyDisplayEventListModel<E> extends EventComboBoxModel<E>
 	/**
 	 * Search through the entity list to find one which has a property
 	 * that matches the &quot;selected value&quot;. A linear search is
-	 * performed so in that case that multiple entities would match, the
+	 * performed so if multiple entities would match, the
 	 * first is selected based on list order.
 	 * <br/>
 	 * If none are found that match the criteria, the selected entity is
@@ -75,6 +80,8 @@ public class PropertyDisplayEventListModel<E> extends EventComboBoxModel<E>
 	 */
 	public void setSelectedItem(Object o)
 	{
+		E old = selectedEntity;
+		
 		selectedItem = o;
 		// linear search for now...
 		selectedEntity = null;
@@ -90,6 +97,8 @@ public class PropertyDisplayEventListModel<E> extends EventComboBoxModel<E>
 		// see super.setSelectedItem(o); for details
 		fireListDataEvent(new ListDataEvent(
 				this, ListDataEvent.CONTENTS_CHANGED, -1, -1));
+		
+		propSupport.firePropertyChange("selectedEntity", old, selectedEntity);
 	}
 
 	/**
@@ -100,6 +109,14 @@ public class PropertyDisplayEventListModel<E> extends EventComboBoxModel<E>
 	public E getSelectedEntity()
 	{
 		return selectedEntity;
+	}
+	
+	public void setSelectedEntity(E entity)
+	{
+		if(entity == null)
+			setSelectedItem(null);
+		else
+			setSelectedItem(getProperty(entity));
 	}
 
 	/**
@@ -132,5 +149,13 @@ public class PropertyDisplayEventListModel<E> extends EventComboBoxModel<E>
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		propSupport.addPropertyChangeListener(listener);
+	}
+	
+	public void removePropertyChangeListener(PropertyChangeListener listener) {
+		propSupport.removePropertyChangeListener(listener);
 	}
 }
