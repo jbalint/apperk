@@ -145,7 +145,7 @@ public class ReportInputFactory
 			InputParameterDefinition pdef = def.getInputParameters().get(i);
 			JLabel name = new JLabel(pdef.getDisplay());
 			ValueModel vm1 =
-				new MapBackedValueModel(model, pdef.getName());
+				new MapBackedValueModel((Map)model, pdef.getName());
 			ValueModel valueModel =
 				new BufferedValueModel(vm1, panel.getTriggerChannel());
 			// TODO: handle list/ComboBox stuff here or somewhere

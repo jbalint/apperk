@@ -28,7 +28,7 @@ public class MapBackedValueModelTest extends TestCase
 		final Date date2 = df.parse("2005-04-22");
 
 		// setup the model
-		Map<String, Object> model = new HashMap<String, Object>();
+		Map<Object, Object> model = new HashMap<Object, Object>();
 		model.put(fName, name1);
 		model.put(fAge, date1);
 
