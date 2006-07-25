@@ -7,6 +7,7 @@ import java.beans.PropertyChangeListener;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JRootPane;
 
 /**
  * A {@link Window} implementation based on a {@link javax.swing.JDialog}.
@@ -14,7 +15,7 @@ import javax.swing.JFrame;
 public class JDialogWindow extends AbstractWindow {
 	/** The dialog backing this window. */
 	protected JDialog dialog;
-	
+
 	/**
 	 * Create a new dialog-backed window.
 	 * 
@@ -58,4 +59,12 @@ public class JDialogWindow extends AbstractWindow {
 		dialog.setVisible(false);
 		dialog.dispose();
 	}
+
+	/**
+	 * Get the JRootPane from the JDialog.
+	 */
+	public JRootPane getRootPane() {
+		return dialog.getRootPane();
+	}
 }
+

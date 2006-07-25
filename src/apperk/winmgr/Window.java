@@ -1,5 +1,8 @@
 package apperk.winmgr;
 
+import javax.swing.JButton;
+import javax.swing.JRootPane;
+
 /**
  * A window represents something that would normally be referred to by the
  * user as a &quot;window&quot;. In Swing parlance, it could be anything
@@ -31,4 +34,15 @@ public interface Window {
 	 * @return The WindowManager managing this Window.
 	 */
 	WindowManager getWindowManager();
+
+	/**
+	 * Provide access to the {@link JRootPane}. This is common
+	 * to the underlying frames, but not exposed in a uniform way.
+	 */
+	JRootPane getRootPane();
+
+	/**
+	 * Allow setting the default button conveniently.
+	 */
+	void setDefaultButton(JButton button);
 }

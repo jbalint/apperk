@@ -6,6 +6,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import javax.swing.JFrame;
+import javax.swing.JRootPane;
 
 /**
  * A {@link Window} implementation based on a {@link javax.swing.JFrame}.
@@ -13,7 +14,7 @@ import javax.swing.JFrame;
 public class JFrameWindow extends AbstractWindow {
 	/** The frame backing this window. */
 	protected JFrame frame;
-	
+
 	/**
 	 * Create a new frame-backed window.
 	 * 
@@ -46,7 +47,7 @@ public class JFrameWindow extends AbstractWindow {
 	public JFrame getFrame() {
 		return frame;
 	}
-	
+
 	/**
 	 * Hide and dispose the backing frame.
 	 */
@@ -54,4 +55,12 @@ public class JFrameWindow extends AbstractWindow {
 		frame.setVisible(false);
 		frame.dispose();
 	}
+
+	/**
+	 * Get the JRootPane from the JFrame.
+	 */
+	public JRootPane getRootPane() {
+		return frame.getRootPane();
+	}
 }
+

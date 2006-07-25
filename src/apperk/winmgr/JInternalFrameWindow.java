@@ -4,6 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import javax.swing.JInternalFrame;
+import javax.swing.JRootPane;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
@@ -59,4 +60,12 @@ public class JInternalFrameWindow extends AbstractWindow {
 		internalFrame.setVisible(false);
 		internalFrame.dispose();
 	}
+
+	/**
+	 * Get the JRootPane from the JInternalFrame.
+	 */
+	public JRootPane getRootPane() {
+		return internalFrame.getRootPane();
+	}
 }
+

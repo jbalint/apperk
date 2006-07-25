@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
@@ -22,7 +23,7 @@ public abstract class AbstractWindow implements Window {
 	protected View view;
 	/** The window manager. */
 	protected WindowManager windowManager;
-	
+
 	/**
 	 * Create a new base window and setup the view.
 	 * 
@@ -33,7 +34,7 @@ public abstract class AbstractWindow implements Window {
 		view.setWindow(this);
 		registerEscToCloseWindow(view.getPanel());
 	}
-	
+
 	/**
 	 * Add a keyboard action to the view's panel to try closing the
 	 * window when 'Esc' is pressed.
@@ -77,4 +78,12 @@ public abstract class AbstractWindow implements Window {
 	public void setWindowManager(WindowManager windowManager) {
 		this.windowManager = windowManager;
 	}
+
+	/**
+	 * Set the default button.
+	 */
+	public void setDefaultButton(JButton button) {
+		getRootPane().setDefaultButton(button);
+	}
 }
+

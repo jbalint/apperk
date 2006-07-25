@@ -16,15 +16,14 @@ import java.awt.event.WindowEvent;
 public class TopLevelWindowManager implements WindowManager {
 	/** The root frame used as the first window and parent of all other windows. */
 	protected JFrameWindow rootFrame;
-	
+
 	/**
 	 * Create a new window.
 	 * 
 	 * @param view The view to be displayed.
 	 */
 	public Window display(View view) {
-		if(rootFrame == null)
-		{
+		if(rootFrame == null) {
 			rootFrame = new JFrameWindow(view);
 			rootFrame.setWindowManager(this);
 			rootFrame.getFrame().setLocationRelativeTo(null);
@@ -36,9 +35,7 @@ public class TopLevelWindowManager implements WindowManager {
 				}
 			});
 			return rootFrame;
-		}
-		else
-		{
+		} else {
 			JDialogWindow window =
 				new JDialogWindow(rootFrame.getFrame(), view);
 			window.setWindowManager(this);
