@@ -57,7 +57,9 @@ public class PropertyDisplayEventListModel<E> extends EventComboBoxModel<E>
 	public Object getElementAt(int i)
 	{
 		E o = (E)super.getElementAt(i);
-		return getProperty(o);
+		if(o == null)
+			System.err.println("apperk.glazedlists.PropertyDisplayEventListModel.getElementAt is Null at: " + i);
+		return o == null ? null : getProperty(o);
 	}
 
 	public Object getSelectedItem()
@@ -110,7 +112,7 @@ public class PropertyDisplayEventListModel<E> extends EventComboBoxModel<E>
 	{
 		return selectedEntity;
 	}
-	
+
 	public void setSelectedEntity(E entity)
 	{
 		if(entity == null)
