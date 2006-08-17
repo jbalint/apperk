@@ -1,0 +1,10 @@
+How to provide certain fields that are part of entities, but still allow loading full entities.
+
+Solutions:
+
+-- need to know how to load entities in implied cases
+
+1. have partially hydrated entities, need to know (a) that they are partially hydrated and (b) which fields are available
+2. have the entity props in the main map and when an entity prop is requests that doesn't exist, load the entity and replace the map of params with the full entity, need to know when a property not currently available and we have to load
+3. load all entities, i think this would be prohibitive due to the volume
+4. keep everything the map and load single properties when requested

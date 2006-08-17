@@ -6,8 +6,7 @@ import com.jgoodies.binding.value.AbstractValueModel;
 
 /**
  * A ValueModel implementation that uses a map entry
- * instead of a JavaBean property. This version does
- * NOT provide property change notification.
+ * instead of a JavaBean property.
  */
 public class MapBackedValueModel extends AbstractValueModel
 {
