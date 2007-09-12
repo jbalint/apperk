@@ -40,6 +40,7 @@ public abstract class AbstractDisplayableTableModel extends AbstractTableModel
 	 * @param column Index of column.
 	 * @return Column name.
 	 */
+	@Override
 	public String getColumnName(int column) {
 		return getColumnNames()[column];
 	}
